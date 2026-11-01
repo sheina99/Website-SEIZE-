@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Produk - SEIZE STORE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-wrap">
+            <a href="index.html" class="logo">
+                <i class="fa-solid fa-gem"></i> SEIZE STORE
+            </a>
+            <nav>
+                <a href="index.html">Beranda</a>
+                <a href="produk.html" class="active">Produk</a>
+                <a href="tentang.html">Tentang</a>
+                <a href="kontak.html">Kontak</a>
+            </nav>
+            <div class="header-actions">
+                <button class="btn-icon" onclick="openCartModal()">
+                    <i class="fa-solid fa-cart-shopping"></i> Keranjang (<span id="cart-count">0</span>)
+                </button>
+                <button class="btn-icon" onclick="openAuthModal()">
+                    <i class="fa-solid fa-user"></i> <span id="user-label">Masuk</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container page-content">
+        <h2 class="section-title">Katalog Produk</h2>
+        
+        <div class="filter-container">
+            <button class="filter-btn active" id="btn-all" onclick="filterCategory('all')">Semua Produk</button>
+            <button class="filter-btn" id="btn-kalung" onclick="filterCategory('kalung')">Kalung</button>
+            <button class="filter-btn" id="btn-gelang" onclick="filterCategory('gelang')">Gelang</button>
+            <button class="filter-btn" id="btn-set" onclick="filterCategory('set')">One Set</button>
+        </div>
+
+        <div id="all-products" class="product-grid"></div>
+    </main>
+
+    <!-- MODAL KERANJANG -->
+    <div id="modal-cart" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-cart-shopping"></i> Keranjang Belanja</h3>
+                <button class="close-modal" onclick="closeCartModal()">&times;</button>
+            </div>
+            <div id="cart-items-list"></div>
+            <div style="border-top:1px solid #e2e8f0; margin-top:15px; padding-top:10px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="font-size:12px; color:#718096;">Total:</span>
+                <span id="cart-total-price" style="font-size:16px; font-weight:bold; color:#5b87b8;">Rp0</span>
+            </div>
+            
+            <div id="checkout-form-box" class="hidden" style="margin-top:15px; border-top:1px dashed #cbd5e1; padding-top:15px;">
+                <h4 style="font-size:14px; margin-bottom:10px; color:#375d87;">Data Pengiriman</h4>
+                <div class="form-group">
+                    <label>Nama Penerima</label>
+                    <input type="text" id="co-nama" placeholder="Nama lengkap">
+                </div>
+                <div class="form-group">
+                    <label>Alamat Lengkap</label>
+                    <textarea id="co-alamat" rows="2" placeholder="Alamat tujuan pengiriman"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <select id="co-bayar">
+                        <option value="qris">QRIS (GoPay, OVO, ShopeePay)</option>
+                        <option value="tf">Transfer Bank</option>
+                        <option value="cod">Bayar di Tempat (COD)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-top:15px;">
+                <button id="btn-next-checkout" onclick="toggleCheckoutStep(true)" class="btn-submit">Lanjut Checkout</button>
+                <button id="btn-finish-pay" onclick="processPayment()" class="btn-submit hidden" style="background:#16a34a;">Bayar Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AUTH LOGIN -->
+    <div id="modal-auth" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-user"></i> Masuk / Akun</h3>
+                <button class="close-modal" onclick="closeAuthModal()">&times;</button>
+            </div>
+            <form id="loginForm" onsubmit="userLogin(event)">
+                <div class="form-group">
+                    <label>Alamat Email</label>
+                    <input type="email" id="acc-email" placeholder="nama@email.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" placeholder="******" required>
+                </div>
+                <button type="submit" class="btn-submit">Masuk</button>
+            </form>
+            <div id="auth-status-logged" class="hidden" style="text-align:center;">
+                <p id="user-display-name" style="font-weight:bold;"></p>
+                <p id="user-display-email" style="font-size:12px; color:#718096; margin-bottom:15px;"></p>
+                <button onclick="userLogout()" class="btn-submit" style="background:#dc2626;">Keluar (Logout)</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 <strong>SEIZE STORE</strong>. Toko Aksesoris Terpercaya.</p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
